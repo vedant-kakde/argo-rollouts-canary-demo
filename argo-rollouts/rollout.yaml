@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: fastapi-rollout
+  namespace: canary-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    metadata:
+      labels:
+        app: fastapi
+    spec:
+      containers:
+        - name: fastapi
+          image: vedantkakde/fastapi-app:v1
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_VERSION
+              value: "v1"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+  strategy:
+    canary:
+      steps:
+        - setWeight: 5
+        - pause: { duration: 0 }
+        - analysis:
+            templates:
+              - templateName: error-rate-check
+        - setWeight
