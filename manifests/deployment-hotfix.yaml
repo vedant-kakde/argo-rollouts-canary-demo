@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment-hotfix
+  namespace: canary-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-hotfix
+  template:
+    metadata:
+      labels:
+        app: fastapi-hotfix
+    spec:
+      containers:
+        - name: fastapi
+          image: vedantkakde/fastapi-app:hotfix
+          ports:
+            - containerPort: 80
