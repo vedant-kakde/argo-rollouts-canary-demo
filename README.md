@@ -161,9 +161,8 @@ Use `watch -n1 curl http://<INGRESS-IP>/` to observe traffic split.
 
 ---
 
-## 📸 Demo Screenshots / Video
+## 📸 Demo Screenshots
 
-> 📷 Add your screenshots or a Loom/Youtube link showing:
 > - Initial rollout
 > - Promotion steps
 > - Failure + rollback
