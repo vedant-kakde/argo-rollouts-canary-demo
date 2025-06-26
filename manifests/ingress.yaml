@@ -6,7 +6,6 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/canary: "true"
 spec:
   ingressClassName: nginx
   rules:
@@ -17,6 +16,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: fastapi-service
+                name: fastapi-service  # This is the Argo-managed rollout service
                 port:
                   number: 80
