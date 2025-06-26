@@ -85,6 +85,21 @@ kubectl apply -f prometheus/
 
 ## 🚦 Canary Rollout Lifecycle
 
+### Initial Rollout (v1)
+Your `rollout.yaml` sets the initial image:
+```yaml
+image: fastapi-app:v1
+```
+
+### Upgrade to v2
+To deploy v2, you don't need a new YAML. Use the Argo Rollouts CLI:
+```bash
+kubectl argo rollouts set image fastapi-rollout \
+  fastapi=fastapi-app:v2 \
+  -n canary-demo
+```
+This triggers the 4-phase rollout (5% → 25% → 50% → 100%).
+
 ### Watch Rollout:
 ```bash
 kubectl argo rollouts get rollout fastapi-rollout -n canary-demo --watch
