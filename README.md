@@ -62,11 +62,19 @@ minikube start --addons=ingress
 
 ### 4. Install Argo Rollouts & NGINX Ingress
 ```bash
+kubectl create namespace canary-demo
 kubectl apply -n canary-demo -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/cloud/deploy.yaml
 ```
 
-### 5. Deploy Resources
+### 5. Install the kubectl-argo-rollouts Plugin
+```bash
+curl -LO https://github.com/argoproj/argo-rollouts/releases/latest/download/kubectl-argo-rollouts-linux-amd64
+chmod +x kubectl-argo-rollouts-linux-amd64
+sudo mv kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
+```
+
+### 6. Deploy Resources
 ```bash
 kubectl apply -f manifests/
 kubectl apply -f argo-rollouts/
