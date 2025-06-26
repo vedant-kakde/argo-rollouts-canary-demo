@@ -14,19 +14,19 @@ spec:
         app: fastapi
     spec:
       containers:
-      - name: fastapi
-        image: vedantkakde/fastapi-app:v1
-        ports:
-        - containerPort: 80
-        env:
-        - name: APP_VERSION
-          value: "v1"
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: fastapi
+          image: vedantkakde/fastapi-app:v1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_VERSION
+              value: "v1"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
   strategy:
     canary:
       steps:
@@ -34,15 +34,15 @@ spec:
         - pause: { duration: 0 }
         - analysis:
             templates:
-            - templateName: error-rate-check
+              - templateName: error-rate-check
         - setWeight: 25
         - pause: { duration: 0 }
         - analysis:
             templates:
-            - templateName: error-rate-check
+              - templateName: error-rate-check
         - setWeight: 50
         - pause: { duration: 0 }
         - analysis:
             templates:
-            - templateName: error-rate-check
+              - templateName: error-rate-check
         - setWeight: 100
